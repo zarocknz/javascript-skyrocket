@@ -104,21 +104,19 @@ Particle.prototype.draw = function()
 // Class for firework (i.e. an individual skyrocket)
 //++ @TODO might move to another file, or make abstract class?
 //++ Should x be passed in or part of the options?
-function Firework(id, x, options)
+function Firework(id, options)
 {
 	// Set the ID, X position, then look at other options.
 	this.id = id;
 	this.power = 80;	//++ To remove or sort use.
 
 	// Set initial position to center bottom of the canvas.
-	this.x = x;
+	this.x = (fcanvas.width / 2);
 	this.y = fcanvas.height;
 
 	// Arrays for the particles making up the explosion and also the trail.
 	this.glitter = new Array(null);
 	this.trail = new Array(null); //++ @TODO figure out trail math.
-
-	//++ @TODO work out and set other options from default etc??
 
 	// Also set something to keep track of the state of the firework.
 	this.state = 'new';
@@ -173,11 +171,15 @@ Firework.prototype.launch = function()
 	this.state = 'launching';
 
 	// Work out random height between 1/3 and top of the canvas to stop at.
-	//++ @TODO Also if lanuching from middle out then need to work out a X.
-	var randomY = ((Math.random() * fcanvas.height / 2) + 100);
+	var randomY = ((Math.random() * fcanvas.height / 3) + 100);
+
+	// Also work out a radom x so the firework goes to the left or right
+	// ensure not too far left or right so not off the screen.
+	var randomX = ((Math.random() * (fcanvas.width - 100)) + 50);
 
 	var properties = new Array(null);
 	properties['y']                = randomY;
+	properties['x']				   = randomX;
 	properties['ease']             = 'Power1.easeOut';
 	properties['onComplete']       = triggerExplode;   // Call function to perform actions when animation has finished.
 	properties['onCompleteParams'] = new Array('' + this.id);   // Add the Id of this one to the params.
@@ -275,3 +277,43 @@ Firework.prototype.fade = function()
 		TweenMax.to(this.glitter[y], 0.8, properties);
 	}
 }
+
+// Define array and count to hold the fireworks.
+var fireworks = new Array(null);
+var fireCount = 0;
+
+// Helper functions, must be outside of classes so that TweenMax can call them.
+// How do we know what to explode. Id is number of firework in array.
+function triggerExplode(id) {
+	fireworks[id].explode();
+}
+
+function triggerFade(id) {
+	fireworks[id].fade();
+}
+
+function triggerDead(id) {
+	fireworks[id] = null;
+}
+
+// Ensures that the fireworks are drawn, called by the tweenMax ticker.
+function animationLoop()
+{
+	// Clear the canvas.
+	fctx.fillStyle = 'black';
+	fctx.fillRect(0, 0, fcanvas.width, fcanvas.height);
+
+	// Loop and draw all fireworks.
+	//++ It will take longer to do this each time. Some sort of queue system
+	//++ @TODO would be nice where the fireworks a pushed on then popped off?
+	//++ How does that affect the ID though.
+	for(i=0; i < fireworks.length; i ++) {
+		// If firework exists at that array position then draw it, otherwise skip.
+		if (fireworks[i]) {
+			fireworks[i].draw();
+		}
+	}
+}
+
+// Hook in to the tick event of greensock to update the wheel.
+TweenLite.ticker.addEventListener("tick", animationLoop);
