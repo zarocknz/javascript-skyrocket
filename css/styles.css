@@ -1,0 +1,74 @@
+html, body {
+  height: 100vh;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+figure {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: dodgerblue;
+  overflow: hidden;
+  will-change: width, height, left;
+  background: linear-gradient(rgba(30, 144, 255, 0.5) 0, transparent 85%, black 85%, black 100%);
+  animation: sky 30s linear infinite;
+}
+
+@keyframes sky {
+  from, to {
+    background-color: #0C4A70; /*skyblue; */
+  }
+
+  30% {
+    background-color: coral;
+  }
+
+  50% {
+    background-color: midnightblue; /* tomato; */
+  }
+
+  75% {
+    background-color: midnightblue;
+  }
+
+  90% {
+    background-color: beige;
+  }
+}
+
+
+@media screen and (max-width:768px) {
+  .backdrop {
+    max-height: 15%
+  }
+}
+
+.backdrop {
+  position: absolute;
+  bottom: 15%;
+  background: black;
+  /*background: rgba(0,0,0,0.8);*/
+  transform-origin: center bottom;
+  transition: width 1s, height 1s, left 1s;
+}
+
+div:nth-child(20n) {
+  -webkit-clip-path: polygon(50% 0%, 110% 15%, 110% 100%, -10% 100%, -10% 15%);
+  clip-path: polygon(50% 0%, 110% 15%, 110% 100%, -10% 100%, -10% 15%);
+}
+
+div:nth-child(12n) {
+  -webkit-clip-path: polygon(-10% 15%, 100% 0, 110% 110%, -10% 100%);
+  clip-path: polygon(-10% 15%, 100% 0, 110% 110%, -10% 100%);
+}
+
+@media (max-width: 640px) {
+  div {
+    transform: scaleY(0.75);
+  }
+}
