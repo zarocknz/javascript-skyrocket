@@ -151,7 +151,7 @@ Firework.prototype.draw = function()
 		//++ @TODO ideally the icon can be rotated, which is important for directional ones like the rocket.
 		fctx.save();
 		fctx.font = this.rocketIconSize + 'px FontAwesome';
-		fctx.fillStyle = 'Goldenrod';
+		fctx.fillStyle = 'rgba(' + this.color1 + ', ' + 1 + ')';
 		fctx.textAlign="center";	// Centers the icon on the point (means no out of alignment with the trail).
 		fctx.fillText(this.rocketIcon, this.x, this.y);
 		fctx.restore();
