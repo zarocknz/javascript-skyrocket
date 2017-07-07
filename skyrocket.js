@@ -313,8 +313,7 @@ function triggerDead(id) {
 function animationLoop()
 {
 	// Clear the canvas.
-	fctx.fillStyle = 'black';
-	fctx.fillRect(0, 0, fcanvas.width, fcanvas.height);
+	fctx.clearRect(0, 0, fcanvas.width, fcanvas.height);
 
 	// Loop and draw all fireworks.
 	//++ It will take longer to do this each time. Some sort of queue system
@@ -325,6 +324,23 @@ function animationLoop()
 			fireworks[i].draw();
 		}
 	}
+}
+
+// Need to make the canvas full width and height.
+function resizeCanvas()
+{
+	// Get the canvas
+	var canvas = document.getElementById('canvas');
+
+	// Get width of window.
+	var w = window.innerWidth;
+
+	// Set height to the current height of the canvas since we don't adjust it.
+	var h = window.innerHeight;
+
+	// Assuming only the width will change to be responsive.
+	canvas.width = w;
+	canvas.height = h;
 }
 
 // Hook in to the tick event of greensock to update the wheel.
