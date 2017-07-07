@@ -9,7 +9,9 @@ var skyrockets = [
 		'color2' : '255,0,0',
 		'particleRadius' : 5,
 		'xFunction' : 'cos',
-		'yFunction' : 'sin'
+		'yFunction' : 'sin',
+		'rocketIcon' : '\f1e2',
+		'rocketIconSize' : '14px'
 	},
 	{
 		'name' : 'rocket2',
@@ -20,7 +22,9 @@ var skyrockets = [
 		'color2' : '255,0,0',
     'particleRadius' : 5,
     'xFunction' : 'cos',
-    'yFunction' : 'sin'
+    'yFunction' : 'sin',
+    'rocketIcon' : '\f135',
+    'rocketIconSize' : '14px'
   },
 	{
 		'name' : 'rocket3',
@@ -31,7 +35,9 @@ var skyrockets = [
 		'color2' : '255,0,100',
     'particleRadius' : 5,
     'xFunction' : 'cos',
-    'yFunction' : 'sin'
+    'yFunction' : 'sin',
+    'rocketIcon' : '\f077',
+    'rocketIconSize' : '16px'
   },
   {
     'name' : 'rocket4',
@@ -42,7 +48,9 @@ var skyrockets = [
     'color2' : '255,102,0',
     'particleRadius' : 5,
     'xFunction' : 'sin',
-    'yFunction' : 'tan'
+    'yFunction' : 'tan',
+    'rocketIcon' : '\f179',
+    'rocketIconSize' : '18px'
   },
   {
     'name' : 'rocket5',
@@ -53,7 +61,9 @@ var skyrockets = [
     'color2' : '255,0,0',
     'particleRadius' : 5,
     'xFunction' : 'cos',
-    'yFunction' : 'sin'
+    'yFunction' : 'sin',
+    'rocketIcon' : '\f17a',
+    'rocketIconSize' : '14px'
   },
   {
     'name' : 'rocket6',
@@ -64,7 +74,9 @@ var skyrockets = [
     'color2' : '255,0,100',
     'particleRadius' : 5,
     'xFunction' : 'cos',
-    'yFunction' : 'sin'
+    'yFunction' : 'sin',
+    'rocketIcon' : '\f004',
+    'rocketIconSize' : '16px'
   },
   {
     'name' : 'rocket7',
@@ -75,9 +87,10 @@ var skyrockets = [
     'color2' : '0,255,43',
     'particleRadius' : 5,
     'xFunction' : 'tan',
-    'yFunction' : 'cos'
-  },
-  {
+    'yFunction' : 'cos',
+    'rocketIcon' : '\f2cd',
+    'rocketIconSize' : '14px'
+  },  {
     'name' : 'rocket8',
     'outerRadius' : 120,
     'innerRadius' : 100,
@@ -86,6 +99,8 @@ var skyrockets = [
     'color2' : '0,255,43',
     'particleRadius' : 5,
     'xFunction' : 'cos',
-    'yFunction' : 'sin'
+    'yFunction' : 'sin',
+    'rocketIcon' : '\f0b1',
+    'rocketIconSize' : '14px'
   },
 ];
