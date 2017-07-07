@@ -68,7 +68,7 @@ function Firework(id, options)
 	// Define default options (most are to do with explosion).
 	defaultOptions = {
 		'rocketIcon' : '\uf135',	// Default icon.
-		'rocketIconSize' : '14px',
+		'rocketIconSize' : '14',	// Without the px
 		'outerRadius' : 60,
 		'innerRadius' : 30,
 		'numParticles' : 50,
@@ -112,8 +112,8 @@ function Firework(id, options)
 	this.y = fcanvas.height;
 
 	// Arrays for the particles making up the explosion and also the trail.
-	this.glitter = new Array(null);
-	this.trail = new Array(null); //++ @TODO figure out trail math and whole trail animation if have time.
+	this.glitter = new Array();
+	this.trail = new Array();
 
 	// Also set something to keep track of the state of the firework.
 	this.state = 'new';
@@ -128,11 +128,32 @@ Firework.prototype.draw = function()
 {
 	if (this.state == 'launching')
 	{
-		// Is a font-awesome icon.
+		var trailId = this.trail.length;
+
+		// Leave behind some particles as a trail.
+		//++ @TODO This will spawn tonnes of particles, should probably do a better way.
+		this.trail[trailId] = new Particle({
+			'x': this.x,
+			'y': this.y,
+			'color' : '100,100,100',
+			'radius' : 2,
+			'alpha' : 0.2
+		});
+
+		// Draw all the particles for this rocket.
+		for (var x = 0; x < this.trail.length; x ++)
+		{
+			this.trail[x].radius += 0.1;
+			this.trail[x].draw();
+		}
+
+		// Draw the rocket which is a font-awesome icon.
+		//++ @TODO ideally the icon can be rotated, which is important for directional ones like the rocket.
 		fctx.save();
-		fctx.font = this.rocketIconSize + ' FontAwesome';
+		fctx.font = this.rocketIconSize + 'px FontAwesome';
 		fctx.fillStyle = 'Goldenrod';
-		fctx.fillText(this.rocketIcon,this.x,this.y);
+		fctx.textAlign="center";	// Centers the icon on the point (means no out of alignment with the trail).
+		fctx.fillText(this.rocketIcon, this.x, this.y);
 		fctx.restore();
 	}
 	else if ((this.state == 'explosion') || (this.state == 'fade'))
@@ -185,7 +206,7 @@ Firework.prototype.explode = function()
 		}
 
 		// Create particle and set intial x,y position to that of the firework.
-		//++ Also set the colour.
+		// And also set the colour, radius and alpha.
 		this.glitter[y] = new Particle({
 			'x': this.x,
 			'y': this.y,

@@ -1,7 +1,7 @@
 // Define setting for different skyrockets.
 var skyrockets = [
 	{
-		'name' : 'rocket1',
+		'name' : 'rocket0',
 		'outerRadius' : 100,
 		'innerRadius' : 70,
 		'numParticles' : 80,
@@ -10,11 +10,11 @@ var skyrockets = [
 		'particleRadius' : 5,
 		'xFunction' : 'cos',
 		'yFunction' : 'sin',
-		'rocketIcon' : '\uf1e2',
-		'rocketIconSize' : '14px'
+		'rocketIcon' : '\uf2cd',
+		'rocketIconSize' : 25
 	},
 	{
-		'name' : 'rocket2',
+		'name' : 'rocket1',
 		'outerRadius' : 50,
 		'innerRadius' : 10,
 		'numParticles' : 20,
@@ -24,10 +24,10 @@ var skyrockets = [
 	    'xFunction' : 'cos',
 	    'yFunction' : 'sin',
 	    'rocketIcon' : '\uf135',
-	    'rocketIconSize' : '14px'
+	    'rocketIconSize' : 14
   },
 	{
-		'name' : 'rocket3',
+		'name' : 'rocket2',
 		'outerRadius' : 80,
 		'innerRadius' : 20,
 		'numParticles' : 20,
@@ -37,10 +37,10 @@ var skyrockets = [
 	    'xFunction' : 'cos',
 	    'yFunction' : 'sin',
 	    'rocketIcon' : '\uf077',
-	    'rocketIconSize' : '16px'
+	    'rocketIconSize' : 16
   },
   {
-    'name' : 'rocket4',
+    'name' : 'rocket3',
     'outerRadius' : 30,
     'innerRadius' : 20,
     'numParticles' : 20,
@@ -50,10 +50,10 @@ var skyrockets = [
     'xFunction' : 'sin',
     'yFunction' : 'tan',
     'rocketIcon' : '\uf179',
-    'rocketIconSize' : '18px'
+    'rocketIconSize' : 18
   },
   {
-    'name' : 'rocket5',
+    'name' : 'rocket4',
     'outerRadius' : 200,
     'innerRadius' : 100,
     'numParticles' : 20,
@@ -63,10 +63,10 @@ var skyrockets = [
     'xFunction' : 'cos',
     'yFunction' : 'sin',
     'rocketIcon' : '\uf17a',
-    'rocketIconSize' : '14px'
+    'rocketIconSize' : 14
   },
   {
-    'name' : 'rocket6',
+    'name' : 'rocket5',
     'outerRadius' : 120,
     'innerRadius' : 20,
     'numParticles' : 200,
@@ -76,10 +76,10 @@ var skyrockets = [
     'xFunction' : 'cos',
     'yFunction' : 'sin',
     'rocketIcon' : '\uf004',
-    'rocketIconSize' : '16px'
+    'rocketIconSize' : 16
   },
   {
-    'name' : 'rocket7',
+    'name' : 'bigBadaBoooom',
     'outerRadius' : 220,
     'innerRadius' : 40,
     'numParticles' : 320,
@@ -88,10 +88,10 @@ var skyrockets = [
     'particleRadius' : 5,
     'xFunction' : 'tan',
     'yFunction' : 'cos',
-    'rocketIcon' : '\uf2cd',
-    'rocketIconSize' : '14px'
+    'rocketIcon' : '\uf1e2',
+    'rocketIconSize' : 40
   },  {
-    'name' : 'rocket8',
+    'name' : 'rocket7',
     'outerRadius' : 120,
     'innerRadius' : 100,
     'numParticles' : 320,
@@ -101,6 +101,6 @@ var skyrockets = [
     'xFunction' : 'cos',
     'yFunction' : 'sin',
     'rocketIcon' : '\uf0b1',
-    'rocketIconSize' : '14px'
+    'rocketIconSize' : 14
   },
 ];
