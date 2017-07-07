@@ -1,42 +1,3 @@
-/*
-//++ Class for show overall which might be redundant so remove??
-function Skyrocket(options)
-{
-	defaultOptions = {
-		'canvasId' : 'canvas',
-	};
-
-	// -----------------------------------------
-    // Loop through the default options and create properties of this class set to the value for
-    // the option passed in or if not value for the option was passed in then to the default.
-    for (var key in defaultOptions) {
-        if ((options != null) && (typeof(options[key]) !== 'undefined')) {
-            this[key] = options[key];
-        } else {
-            this[key] = defaultOptions[key];
-        }
-    }
-
-	// Also loop though the passed in options and add anything specified not part of the class in to it as a property.
-    if (options != null) {
-        for (var key in options) {
-            if (typeof(this[key]) === 'undefined') {
-                this[key] = options[key];
-            }
-        }
-    }
-	// If have the canvasID then get it and keep a copy in memory.
-	if (this.canvasId) {
-        fcanvas = document.getElementById(this.canvasId);
-
-		// If have the canvas then get it's context.
-		if (this.canvas) {
-			fctx = this.canvas.getContext('2d');
-		}
-	}
-}
-*/
-
 // Class for particles which have x, y, color, alpha etc.
 function Particle(options)
 {
@@ -111,9 +72,13 @@ function Firework(id, options)
 		'outerRadius' : 60,
 		'innerRadius' : 30,
 		'numParticles' : 50,
+		'particleRadius' : 3,
+		'particleAlpha' : 0.8,
 		'color1' : '255,0,0',
 		'color2' : null,
 		'easing' : 'Power1.easeOut',
+		'xFunction' : 'cos',
+		'yFunction' : 'sin',
 		'tail' : false,
 		'tailWidth' : 1,
 		'tailColor' : '0,255,0'
@@ -236,7 +201,9 @@ Firework.prototype.explode = function()
 		this.glitter[y] = new Particle({
 			'x': this.x,
 			'y': this.y,
-			'color' : particleColor
+			'color' : particleColor,
+			'radius' : this.particleRadius,
+			'alpha' : this.particleAlpha
 		});
 
 		// Work out angle and radius.
@@ -245,14 +212,28 @@ Firework.prototype.explode = function()
 		// Work out a random radius between the inner and outerRadius.
 		var randRadius = (Math.random() * (this.outerRadius - this.innerRadius)) + this.innerRadius;
 
-		//console.log(randRadius);
-
 		// Convert the angle in to radians since that is what the math functions need to be.
 		var radian = (randAngle * 0.0174532925);
 
 		// Work out the targetX and targetY, this is relative to the center point.
-		var targetX = randRadius * Math.cos(radian);
-		var targetY = randRadius * Math.sin(radian);
+		var targetX = 0;
+		var targetY = 0;
+
+		if (this.xFunction == 'cos') {
+			targetX = randRadius * Math.cos(radian);
+		} else if (this.xFunction == 'tan') {
+			targetX = randRadius * Math.tan(radian);
+		} else if (this.xFunction == 'sin') {
+			targetX = randRadius * Math.sin(radian);
+		}
+
+		if (this.yFunction == 'cos') {
+			targetY = randRadius * Math.cos(radian);
+		} else if (this.yFunction == 'tan') {
+			targetY = randRadius * Math.tan(radian);
+		} else if (this.yFunction == 'sin') {
+			targetY = randRadius * Math.sin(radian);
+		}
 
 		// Put together the properties for the tweenmax animation.
 		var properties = new Array(null);
