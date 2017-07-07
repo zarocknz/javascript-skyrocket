@@ -313,8 +313,7 @@ function triggerDead(id) {
 function animationLoop()
 {
 	// Clear the canvas.
-	fctx.fillStyle = 'black';
-	fctx.fillRect(0, 0, fcanvas.width, fcanvas.height);
+	fctx.clearRect(0, 0, fcanvas.width, fcanvas.height);
 
 	// Loop and draw all fireworks.
 	//++ It will take longer to do this each time. Some sort of queue system
@@ -325,6 +324,45 @@ function animationLoop()
 			fireworks[i].draw();
 		}
 	}
+}
+
+// Need to make the canvas full width and height.
+function resizeCanvas()
+{
+	// Get the canvas
+	var canvas = document.getElementById('canvas');
+
+	// Get width of window.
+	var w = window.innerWidth;
+
+	// Set height to the current height of the canvas since we don't adjust it.
+	var h = window.innerHeight;
+
+	// Assuming only the width will change to be responsive.
+	canvas.width = w;
+	canvas.height = h;
+
+	// To ensure the wheel stays inside the canvas, work out what is the smaller
+	// value between width and height, and set the outerRadius to half of that.
+	if (w < h) {
+		theWheel.outerRadius = (w / 2);
+	} else {
+		theWheel.outerRadius = (h / 2);
+	}
+
+	/*
+	// In order to keep the wheel in the center of the canvas the centerX and
+	// centerY need to be set to the middle point of the canvas.
+	theWheel.centerX = (canvas.width / 2);
+	theWheel.centerY = (canvas.height / 2);
+
+	// Other possible TODO
+	// - Alter the font size.
+	// - Adjust inner radius if the wheel has one.
+
+	// Re-draw the wheel.
+	theWheel.draw();
+	*/
 }
 
 // Hook in to the tick event of greensock to update the wheel.
