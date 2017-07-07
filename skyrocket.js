@@ -106,10 +106,17 @@ Particle.prototype.draw = function()
 //++ also images etc for the rockets, can have different sounds in future.
 function Firework(id, options)
 {
-	// Define default options
-	//++ Work out what other options there might be.
+	// Define default options (most are to do with explosion).
 	defaultOptions = {
-		'power' : 60
+		'outerRadius' : 60,
+		'innerRadius' : 30,
+		'numParticles' : 50,
+		'color1' : '255,0,0',
+		'color2' : null,
+		'easing' : 'Power1.easeOut',
+		'tail' : false,
+		'tailWidth' : 1,
+		'tailColor' : '0,255,0'
 	};
 
 	// Now loop through the default options and create properties of this class set to the value for
@@ -135,7 +142,7 @@ function Firework(id, options)
 	this.id = id;
 
 	// Set initial position to center bottom of the canvas.
-	//++ This may be one of the options, other users might not want it launched from the center.
+	//++ @TODO This may be one of the options, other users might not want it launched from the center.
 	this.x = (fcanvas.width / 2);
 	this.y = fcanvas.height;
 
@@ -215,40 +222,43 @@ Firework.prototype.explode = function()
 {
 	this.state = 'explosion';
 
-	//++ @TODO this will need to be different for each forework type so some sort of inheritince
-	//++ and this subclassing might be good so we can overload this function for each rocket created.
-
-	// When creating firework the user can specify the power which controls how big the explosion is.
-	var targetRadius = this.power;
-
-	//++ Just loop for number of particles wanted.
-	for (var y = 0; y < 50; y ++)
+	for (var y = 0; y < this.numParticles; y ++)
 	{
+		// Figure out the color, there can be 2.
+		var particleColor = this.color1;
+
+		if ((this.color2 !== null) &&  (y % 2 === 0))  {
+			particleColor = this.color2;
+		}
+
 		// Create particle and set intial x,y position to that of the firework.
-		//++ @TODO can pass more properties like the colour of each particle, might be same
-		//++ of 1 of 2 colours or random etc
+		//++ Also set the colour.
 		this.glitter[y] = new Particle({
 			'x': this.x,
 			'y': this.y,
-			'color' : '255,0,0'	// Needs to be RGB to alpha can be added for fade.
+			'color' : particleColor
 		});
 
 		// Work out angle and radius.
-		var randAngle = Math.random() * 359;	// Angle that partciles can be around the center point.
-		var randRadius = Math.random() * 20;	// Give some variance to the particle distance, no perfect circles.
+		var randAngle = Math.random() * 359;	// Angle the particles around the full 360.
+
+		// Work out a random radius between the inner and outerRadius.
+		var randRadius = (Math.random() * (this.outerRadius - this.innerRadius)) + this.innerRadius;
+
+		//console.log(randRadius);
 
 		// Convert the angle in to radians since that is what the math functions need to be.
 		var radian = (randAngle * 0.0174532925);
 
 		// Work out the targetX and targetY, this is relative to the center point.
-		var targetX = (targetRadius + randRadius) * Math.cos(radian);
-		var targetY = (targetRadius + randRadius) * Math.sin(radian);
+		var targetX = randRadius * Math.cos(radian);
+		var targetY = randRadius * Math.sin(radian);
 
 		// Put together the properties for the tweenmax animation.
 		var properties = new Array(null);
 		properties['x'] = this.x + targetX;
 		properties['y'] = this.y + targetY;
-		properties['ease'] = 'Power1.easeOut';
+		properties['ease'] = this.easing;
 
 		TweenMax.to(this.glitter[y], 2, properties);
 	}
