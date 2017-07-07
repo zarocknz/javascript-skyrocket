@@ -10,7 +10,7 @@ var skyrockets = [
 		'particleRadius' : 5,
 		'xFunction' : 'cos',
 		'yFunction' : 'sin',
-		'rocketIcon' : '\f1e2',
+		'rocketIcon' : '\uf1e2',
 		'rocketIconSize' : '14px'
 	},
 	{
@@ -20,11 +20,11 @@ var skyrockets = [
 		'numParticles' : 20,
 		'color1' : '0,100,255',
 		'color2' : '255,0,0',
-    'particleRadius' : 5,
-    'xFunction' : 'cos',
-    'yFunction' : 'sin',
-    'rocketIcon' : '\f135',
-    'rocketIconSize' : '14px'
+	    'particleRadius' : 5,
+	    'xFunction' : 'cos',
+	    'yFunction' : 'sin',
+	    'rocketIcon' : '\uf135',
+	    'rocketIconSize' : '14px'
   },
 	{
 		'name' : 'rocket3',
@@ -33,11 +33,11 @@ var skyrockets = [
 		'numParticles' : 20,
 		'color1' : '0,150,200',
 		'color2' : '255,0,100',
-    'particleRadius' : 5,
-    'xFunction' : 'cos',
-    'yFunction' : 'sin',
-    'rocketIcon' : '\f077',
-    'rocketIconSize' : '16px'
+	    'particleRadius' : 5,
+	    'xFunction' : 'cos',
+	    'yFunction' : 'sin',
+	    'rocketIcon' : '\uf077',
+	    'rocketIconSize' : '16px'
   },
   {
     'name' : 'rocket4',
@@ -49,7 +49,7 @@ var skyrockets = [
     'particleRadius' : 5,
     'xFunction' : 'sin',
     'yFunction' : 'tan',
-    'rocketIcon' : '\f179',
+    'rocketIcon' : '\uf179',
     'rocketIconSize' : '18px'
   },
   {
@@ -62,7 +62,7 @@ var skyrockets = [
     'particleRadius' : 5,
     'xFunction' : 'cos',
     'yFunction' : 'sin',
-    'rocketIcon' : '\f17a',
+    'rocketIcon' : '\uf17a',
     'rocketIconSize' : '14px'
   },
   {
@@ -75,7 +75,7 @@ var skyrockets = [
     'particleRadius' : 5,
     'xFunction' : 'cos',
     'yFunction' : 'sin',
-    'rocketIcon' : '\f004',
+    'rocketIcon' : '\uf004',
     'rocketIconSize' : '16px'
   },
   {
@@ -88,7 +88,7 @@ var skyrockets = [
     'particleRadius' : 5,
     'xFunction' : 'tan',
     'yFunction' : 'cos',
-    'rocketIcon' : '\f2cd',
+    'rocketIcon' : '\uf2cd',
     'rocketIconSize' : '14px'
   },  {
     'name' : 'rocket8',
@@ -100,7 +100,7 @@ var skyrockets = [
     'particleRadius' : 5,
     'xFunction' : 'cos',
     'yFunction' : 'sin',
-    'rocketIcon' : '\f0b1',
+    'rocketIcon' : '\uf0b1',
     'rocketIconSize' : '14px'
   },
 ];
