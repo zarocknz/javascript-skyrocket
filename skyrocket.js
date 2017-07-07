@@ -341,28 +341,6 @@ function resizeCanvas()
 	// Assuming only the width will change to be responsive.
 	canvas.width = w;
 	canvas.height = h;
-
-	// To ensure the wheel stays inside the canvas, work out what is the smaller
-	// value between width and height, and set the outerRadius to half of that.
-	if (w < h) {
-		theWheel.outerRadius = (w / 2);
-	} else {
-		theWheel.outerRadius = (h / 2);
-	}
-
-	/*
-	// In order to keep the wheel in the center of the canvas the centerX and
-	// centerY need to be set to the middle point of the canvas.
-	theWheel.centerX = (canvas.width / 2);
-	theWheel.centerY = (canvas.height / 2);
-
-	// Other possible TODO
-	// - Alter the font size.
-	// - Adjust inner radius if the wheel has one.
-
-	// Re-draw the wheel.
-	theWheel.draw();
-	*/
 }
 
 // Hook in to the tick event of greensock to update the wheel.
