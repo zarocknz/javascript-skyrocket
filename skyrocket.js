@@ -63,12 +63,12 @@ Particle.prototype.draw = function()
 }
 
 // Class for firework (i.e. an individual skyrocket)
-//++ Think this needs to be able to be sublassed so have different explosions and
-//++ also images etc for the rockets, can have different sounds in future.
 function Firework(id, options)
 {
 	// Define default options (most are to do with explosion).
 	defaultOptions = {
+		'rocketIcon' : '\uf135',	// Default icon.
+		'rocketIconSize' : '14px',
 		'outerRadius' : 60,
 		'innerRadius' : 30,
 		'numParticles' : 50,
@@ -123,29 +123,17 @@ function Firework(id, options)
 	this.launch();
 }
 
-// Draws the firework
-//++ @TODO change to image or other thing, needs to be angled in the direction of the targetx,y
+// Draws the firework from a font-awesome icon.
 Firework.prototype.draw = function()
 {
-	fctx.fillStyle = 'black';
-
 	if (this.state == 'launching')
 	{
-		// Same as before but with little rocket tail.
-		fctx.fillStyle = 'yellow';
-		fctx.fillRect(this.x, this.y, 10, 30);
-		fctx.fillStyle = 'brown';
-		fctx.fillRect(this.x, this.y, 2, 70);
-
-		// Draw triangle at the top.
-		fctx.beginPath();
-		fctx.moveTo(this.x, this.y);
-		fctx.lineTo(this.x + 5, this.y - 10);
-		fctx.lineTo(this.x + 10, this.y);
-		fctx.closePath();
-		fctx.fillStyle = 'aqua';
-		fctx.fill();
-
+		// Is a font-awesome icon.
+		fctx.save();
+		fctx.font = this.rocketIconSize + ' FontAwesome';
+		fctx.fillStyle = 'Goldenrod';
+		fctx.fillText(this.rocketIcon,this.x,this.y);
+		fctx.restore();
 	}
 	else if ((this.state == 'explosion') || (this.state == 'fade'))
 	{
