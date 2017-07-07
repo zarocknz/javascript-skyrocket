@@ -1,9 +1,5 @@
-// Class for the skyrocket show over all.
-//++ perhaps name should be "show"??
-
-//var fcanvas = null
-//var fctx = null;
-
+/*
+//++ Class for show overall which might be redundant so remove??
 function Skyrocket(options)
 {
 	defaultOptions = {
@@ -39,15 +35,17 @@ function Skyrocket(options)
 		}
 	}
 }
+*/
 
-// Class for particles which have x, y, colour.
+// Class for particles which have x, y, color, alpha etc.
 function Particle(options)
 {
 	// Define default options
 	defaultOptions = {
 		'x' : 0,
 		'y' : 0,
-		'fillStyle' : 'yellow',
+		'color' : '0,255,0',
+		'alpha' : 0.8,			// Used with the colour to set rgba fillStyle.
 		'strokeStyle' : '',
 		'lineWidth' : 0,
 		'radius' : 3
@@ -78,7 +76,9 @@ Particle.prototype.draw = function()
 {
 	// Save context so colour change does not affect anything else.
 	fctx.save();
-	fctx.fillStyle = this.fillStyle;
+	// Set fillstyle to the color which must be rgb plus the alpha
+	// We can change the alpha to do the fade.
+	fctx.fillStyle = 'rgba(' + this.color + ', ' + this.alpha + ')';
 	fctx.strokeStyle = this.strokeStyle;
 	fctx.lineWidth = this.lineStyle;
 
@@ -89,7 +89,7 @@ Particle.prototype.draw = function()
 	fctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
 
 	// Fill and stroke
-	if (this.fillStyle) {
+	if (this.color) {
 		fctx.fill();
 	}
 
@@ -102,32 +102,57 @@ Particle.prototype.draw = function()
 }
 
 // Class for firework (i.e. an individual skyrocket)
-//++ @TODO might move to another file, or make abstract class?
-//++ Should x be passed in or part of the options?
+//++ Think this needs to be able to be sublassed so have different explosions and
+//++ also images etc for the rockets, can have different sounds in future.
 function Firework(id, options)
 {
+	// Define default options
+	//++ Work out what other options there might be.
+	defaultOptions = {
+		'power' : 60
+	};
+
+	// Now loop through the default options and create properties of this class set to the value for
+    // the option passed in if a value was, or if not then set the value of the default.
+    for (var key in defaultOptions) {
+        if ((options != null) && (typeof(options[key]) !== 'undefined'))
+            this[key] = options[key];
+        else
+            this[key] = defaultOptions[key];
+    }
+
+    // Also loop though the passed in options and add anything specified not part of the class in to it as a property.
+    // This allows the developer to easily add properties to particles at creation time.
+    if (options != null) {
+        for (var key in options) {
+            if (typeof(this[key]) === 'undefined') {
+                this[key] = options[key];
+            }
+        }
+    }
+
 	// Set the ID, X position, then look at other options.
 	this.id = id;
-	this.power = 80;	//++ To remove or sort use.
 
 	// Set initial position to center bottom of the canvas.
+	//++ This may be one of the options, other users might not want it launched from the center.
 	this.x = (fcanvas.width / 2);
 	this.y = fcanvas.height;
 
 	// Arrays for the particles making up the explosion and also the trail.
 	this.glitter = new Array(null);
-	this.trail = new Array(null); //++ @TODO figure out trail math.
+	this.trail = new Array(null); //++ @TODO figure out trail math and whole trail animation if have time.
 
 	// Also set something to keep track of the state of the firework.
 	this.state = 'new';
 
 	// Call function to auto launch the firework straight away?
-	//++ TODO decide if fireworks can be queued up and launched later so don't call this here.
+	//++ @TODO decide if fireworks can be queued up and launched later so don't call this here.
 	this.launch();
 }
 
 // Draws the firework
-//++ This will likely change to an image for font so draw would be different.
+//++ @TODO change to image or other thing, needs to be angled in the direction of the targetx,y
 Firework.prototype.draw = function()
 {
 	fctx.fillStyle = 'black';
@@ -152,16 +177,10 @@ Firework.prototype.draw = function()
 	}
 	else if ((this.state == 'explosion') || (this.state == 'fade'))
 	{
-		//ctx.save();
-		// All petals have same colour and also alpha as the firework.
-		//ctx.fillStyle = 'rgba(' + this.color + ', ' + this.alpha + ')';
-
 		// We need to draw the particles making up the explosion.
 		for (y = 0; y < this.glitter.length; y ++) {
 			this.glitter[y].draw();
 		}
-
-		//ctx.restore();
 	}
 }
 
@@ -196,51 +215,39 @@ Firework.prototype.explode = function()
 {
 	this.state = 'explosion';
 
-	// Create array for petals.
-	//++this.glitter = new Array(null);
+	//++ @TODO this will need to be different for each forework type so some sort of inheritince
+	//++ and this subclassing might be good so we can overload this function for each rocket created.
 
-	//++ @TODO this function will change to compute the animation so will just use the
-	//++ properies defined here such as the number of particles, radius etc.
+	// When creating firework the user can specify the power which controls how big the explosion is.
+	var targetRadius = this.power;
 
-	//++ @TODO change to center-based calculation with trig math rather than below from the newyear prototype.
-
+	//++ Just loop for number of particles wanted.
 	for (var y = 0; y < 50; y ++)
 	{
 		// Create particle and set intial x,y position to that of the firework.
-		this.glitter[y] = new Particle({'x': this.x, 'y': this.y});
-		//this.petals[y].x = this.x;
-		//this.petals[y].y = this.y;
+		//++ @TODO can pass more properties like the colour of each particle, might be same
+		//++ of 1 of 2 colours or random etc
+		this.glitter[y] = new Particle({
+			'x': this.x,
+			'y': this.y,
+			'color' : '255,0,0'	// Needs to be RGB to alpha can be added for fade.
+		});
 
-		// Also need to tween each petal, randomise x and y a bit.
-		//++ This to change, sort how power would come in to it - just affects the radius?
-		var randomX = (Math.random() * this.power) + 1;
-		var randomY = (Math.random() * this.power) + 1;
+		// Work out angle and radius.
+		var randAngle = Math.random() * 359;	// Angle that partciles can be around the center point.
+		var randRadius = Math.random() * 20;	// Give some variance to the particle distance, no perfect circles.
 
-		//var randomFix = (Math.random() * 2 + 1);
+		// Convert the angle in to radians since that is what the math functions need to be.
+		var radian = (randAngle * 0.0174532925);
 
-		if (randomX + randomY >= this.power)
-		{
-			randomX = randomX / 1.5;
-			randomY = randomY / 1.5;
-		}
+		// Work out the targetX and targetY, this is relative to the center point.
+		var targetX = (targetRadius + randRadius) * Math.cos(radian);
+		var targetY = (targetRadius + randRadius) * Math.sin(radian);
 
-		var xFlip = Math.floor((Math.random() * 2) + 1);
-		var yFlip = Math.floor((Math.random() * 2) + 1);
-
-		// Calculate the new x and Y of the petal by adding or subtracting the random to the current values in the tween.
+		// Put together the properties for the tweenmax animation.
 		var properties = new Array(null);
-
-		if (xFlip > 1) {
-			properties['x'] = this.x - randomX;
-		} else {
-			properties['x'] = this.x + randomX;
-		}
-
-		if (yFlip > 1) {
-			properties['y'] = this.y - randomY;
-		} else {
-			properties['y'] = this.y + randomY;
-		}
+		properties['x'] = this.x + targetX;
+		properties['y'] = this.y + targetY;
 		properties['ease'] = 'Power1.easeOut';
 
 		TweenMax.to(this.glitter[y], 2, properties);
@@ -259,10 +266,10 @@ Firework.prototype.fade = function()
 {
 	this.state = 'fade';
 
-	// Fade the alpha on the firework itself.
+	// Need to trigger the firework dead at the same time as the particles are finished
+	//++ @TODO review if this is the best way to do it as alpha was on the firework as a whole before.
 	var properties = new Array(null);
-	properties['alpha']            = 0;    // Setting the alpha to 0 fades it out.
-	properties['ease']             = 'Power0.easeNone';
+	properties['ease']  		   = 'Power0.easeNone';
 	properties['onComplete']       = triggerDead;
 	properties['onCompleteParams'] = new Array('' + this.id);
 	TweenMax.to(this, 0.8, properties);
@@ -273,6 +280,7 @@ Firework.prototype.fade = function()
 		var properties = new Array(null);
 		properties['y']     = (this.glitter[y].y + 10);
 		properties['ease']  = 'Power0.easeNone';
+		properties['alpha'] = 0;    // Setting the alpha to 0 fades it out.
 
 		TweenMax.to(this.glitter[y], 0.8, properties);
 	}
@@ -281,6 +289,11 @@ Firework.prototype.fade = function()
 // Define array and count to hold the fireworks.
 var fireworks = new Array(null);
 var fireCount = 0;
+
+// Converts degress to radians.
+function degreesToRadians(d) {
+	return d * 0.0174532925199432957;
+}
 
 // Helper functions, must be outside of classes so that TweenMax can call them.
 // How do we know what to explode. Id is number of firework in array.
@@ -305,8 +318,7 @@ function animationLoop()
 
 	// Loop and draw all fireworks.
 	//++ It will take longer to do this each time. Some sort of queue system
-	//++ @TODO would be nice where the fireworks a pushed on then popped off?
-	//++ How does that affect the ID though.
+	//++ @TODO would be nice where the fireworks a pushed on then popped off? - How does that affect the ID though?
 	for(i=0; i < fireworks.length; i ++) {
 		// If firework exists at that array position then draw it, otherwise skip.
 		if (fireworks[i]) {
