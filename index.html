@@ -1,22 +1,46 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
+    <head>
+      <meta charset="utf-8">
+      <title>Skyrocket.js | example</title>
+      <link rel="stylesheet" href="css/normalize.css">
+      <link rel="stylesheet" href="css/styles.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body onresize="resizeCanvas()" onload="resizeCanvas(); addFirework();">
 
-  <title>The backdrop</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="Catalyst">
+        <figure id="main">
+            <div class="backdrop"></div>
+        </figure>
+        <canvas id="canvas" width="500" height="500">
+            Canvas not supported, please try a different web browser.
+        </canvas>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/backdrop.js"></script>
+        <script src="js/rocket_definitions.js"></script>
+        <script src="js/skyrocket.js"></script>
+        <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
 
-</head>
+        function addFirework()
+        {
+            // Choose a random firework from the definition of the fireworks above.
+            var randWork = Math.floor(Math.random() * skyrockets.length);
 
-<body>
-  <figure id="main">
-    <div class="backdrop"></div>
-  </figure>
+            // Create a new firework.
+           fireworks[fireCount] = new Firework(fireCount, skyrockets[randWork]);
 
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/backdrop.js"></script>
-</body>
+           // Increment this for next time.
+           fireCount ++;
+
+            // Set random timeout to launch more skyrockets at random intervals.
+            var randTimeout = Math.floor((Math.random() * 2500) + 300);
+            setTimeout(addFirework, randTimeout);
+        }
+
+        </script>
+    </body>
 </html>
