@@ -36,30 +36,30 @@ function Particle(options)
 Particle.prototype.draw = function()
 {
 	// Save context so colour change does not affect anything else.
-	fctx.save();
+	ctx.save();
 	// Set fillstyle to the color which must be rgb plus the alpha
 	// We can change the alpha to do the fade.
-	fctx.fillStyle = 'rgba(' + this.color + ', ' + this.alpha + ')';
-	fctx.strokeStyle = this.strokeStyle;
-	fctx.lineWidth = this.lineStyle;
+	ctx.fillStyle = 'rgba(' + this.color + ', ' + this.alpha + ')';
+	ctx.strokeStyle = this.strokeStyle;
+	ctx.lineWidth = this.lineStyle;
 
 	// Beign the path for the circle.
-	fctx.beginPath();
+	ctx.beginPath();
 
 	// X, y, radius, startAngle, endAngle.
-	fctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
+	ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
 
 	// Fill and stroke
 	if (this.color) {
-		fctx.fill();
+		ctx.fill();
 	}
 
 	if (this.strokeStyle && this.lineWidth) {
-		fctx.stroke();
+		ctx.stroke();
 	}
 
 	// Restore canvas settings.
-	fctx.restore();
+	ctx.restore();
 }
 
 // Class for firework (i.e. an individual skyrocket)
@@ -108,8 +108,8 @@ function Firework(id, options)
 
 	// Set initial position to center bottom of the canvas.
 	//++ @TODO This may be one of the options, other users might not want it launched from the center.
-	this.x = (fcanvas.width / 2);
-	this.y = fcanvas.height;
+	this.x = (canvas.width / 2);
+	this.y = canvas.height;
 
 	// Arrays for the particles making up the explosion and also the trail.
 	this.glitter = new Array();
@@ -149,12 +149,12 @@ Firework.prototype.draw = function()
 
 		// Draw the rocket which is a font-awesome icon.
 		//++ @TODO ideally the icon can be rotated, which is important for directional ones like the rocket.
-		fctx.save();
-		fctx.font = this.rocketIconSize + 'px FontAwesome';
-		fctx.fillStyle = 'rgba(' + this.color1 + ', ' + 1 + ')';
-		fctx.textAlign="center";	// Centers the icon on the point (means no out of alignment with the trail).
-		fctx.fillText(this.rocketIcon, this.x, this.y);
-		fctx.restore();
+		ctx.save();
+		ctx.font = this.rocketIconSize + 'px FontAwesome';
+		ctx.fillStyle = 'rgba(' + this.color1 + ', ' + 1 + ')';
+		ctx.textAlign="center";	// Centers the icon on the point (means no out of alignment with the trail).
+		ctx.fillText(this.rocketIcon, this.x, this.y);
+		ctx.restore();
 	}
 	else if ((this.state == 'explosion') || (this.state == 'fade'))
 	{
@@ -171,11 +171,11 @@ Firework.prototype.launch = function()
 	this.state = 'launching';
 
 	// Work out random height between 1/3 and top of the canvas to stop at.
-	var randomY = ((Math.random() * fcanvas.height / 3) + 100);
+	var randomY = ((Math.random() * canvas.height / 3) + 100);
 
 	// Also work out a radom x so the firework goes to the left or right
 	// ensure not too far left or right so not off the screen.
-	var randomX = ((Math.random() * (fcanvas.width - 100)) + 50);
+	var randomX = ((Math.random() * (canvas.width - 100)) + 50);
 
 	var properties = new Array(null);
 	properties['y']                = randomY;
@@ -313,7 +313,7 @@ function triggerDead(id) {
 function animationLoop()
 {
 	// Clear the canvas.
-	fctx.clearRect(0, 0, fcanvas.width, fcanvas.height);
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	// Loop and draw all fireworks.
 	//++ It will take longer to do this each time. Some sort of queue system
