@@ -67,8 +67,6 @@ function Firework(id, options)
 {
     // Define default options (most are to do with explosion).
     defaultOptions = {
-        'rocketIcon' : '\uf135',    // Default icon.
-        'rocketIconSize' : '14',    // Without the px
         'outerRadius' : 60,
         'innerRadius' : 30,
         'numParticles' : 50,
@@ -123,7 +121,7 @@ function Firework(id, options)
     this.launch();
 }
 
-// Draws the firework from a font-awesome icon.
+// Draws the firework.
 Firework.prototype.draw = function()
 {
     if (this.state == 'launching')
