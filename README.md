@@ -37,8 +37,6 @@ Also a big thank you to Catalyst http://www.catalyst.net.nz/ for having a hackda
 ## TODO
 Heaps, which may include the following (not in any particular order)...
 
-* Remove jQuery dependancy for the backdrop/skyline, use pure JS
-* Stop sky from changing colour, ensure is nice and dark so can see fireworks
 * Define more and better firework explosion shapes and colours
 * Perhaps de-couple firework explosion shapes from the colours so users can pick a shape and specify any colour
 * Remove Font Awesome and code-draw some skyrocket rockets

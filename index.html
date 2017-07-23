@@ -17,7 +17,6 @@
         </canvas>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
-        <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/backdrop.js"></script>
         <script src="js/rocket_definitions.js"></script>
         <script src="js/skyrocket.js"></script>
@@ -31,16 +30,15 @@
             var randWork = Math.floor(Math.random() * skyrockets.length);
 
             // Create a new firework.
-           fireworks[fireCount] = new Firework(fireCount, skyrockets[randWork]);
+            fireworks[fireCount] = new Firework(fireCount, skyrockets[randWork]);
 
-           // Increment this for next time.
-           fireCount ++;
+            // Increment this for next time.
+            fireCount ++;
 
             // Set random timeout to launch more skyrockets at random intervals.
             var randTimeout = Math.floor((Math.random() * 2500) + 300);
             setTimeout(addFirework, randTimeout);
         }
-
         </script>
     </body>
 </html>

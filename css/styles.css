@@ -15,32 +15,8 @@ figure {
   background: dodgerblue;
   overflow: hidden;
   will-change: width, height, left;
-  background: linear-gradient(rgba(30, 144, 255, 0.5) 0, transparent 85%, black 85%, black 100%);
-  animation: sky 30s linear infinite;
+  background: linear-gradient(#20202f 0%, #273550 25%, #416081 60%, #adacb2 82%, #000 82%, #000 100%);
 }
-
-@keyframes sky {
-  from, to {
-    background-color: #0C4A70; /*skyblue; */
-  }
-
-  30% {
-    background-color: coral;
-  }
-
-  50% {
-    background-color: midnightblue; /* tomato; */
-  }
-
-  75% {
-    background-color: midnightblue;
-  }
-
-  90% {
-    background-color: beige;
-  }
-}
-
 
 @media screen and (max-width:768px) {
   .backdrop {
