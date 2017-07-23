@@ -9,9 +9,7 @@ var skyrockets = [
         'color2' : '0,255,0',
         'particleRadius' : 4,
         'xFunction' : 'cos',
-        'yFunction' : 'sin',
-        'rocketIcon' : '\uf2e0',
-        'rocketIconSize' : 25
+        'yFunction' : 'sin'
     },
     {
         'name' : 'blueRedRocketSmall',
@@ -22,9 +20,7 @@ var skyrockets = [
         'color2' : '255,0,0',
         'particleRadius' : 5,
         'xFunction' : 'cos',
-        'yFunction' : 'sin',
-        'rocketIcon' : '\uf135',
-        'rocketIconSize' : 20
+        'yFunction' : 'sin'
     },
     {
         'name' : 'bluePinkSmallParticle',
@@ -35,9 +31,7 @@ var skyrockets = [
         'color2' : '255,0,100',
         'particleRadius' : 2,
         'xFunction' : 'cos',
-        'yFunction' : 'sin',
-        'rocketIcon' : '\uf077',
-        'rocketIconSize' : 16
+        'yFunction' : 'sin'
     },
     {
         'name' : 'BlueOrangeGitCatVertialExplode',
@@ -48,9 +42,7 @@ var skyrockets = [
         'color2' : '255,102,0',
         'particleRadius' : 5,
         'xFunction' : 'sin',
-        'yFunction' : 'tan',
-        'rocketIcon' : '\uf113',
-        'rocketIconSize' : 25
+        'yFunction' : 'tan'
     },
     {
         'name' : 'CodePenRedYellowNotDense',
@@ -61,9 +53,7 @@ var skyrockets = [
         'color2' : '255,0,0',
         'particleRadius' : 5,
         'xFunction' : 'cos',
-        'yFunction' : 'sin',
-        'rocketIcon' : '\uf1cb',
-        'rocketIconSize' : 12
+        'yFunction' : 'sin'
     },
     {
         'name' : 'YellowPinkHeartCircular',
@@ -74,9 +64,7 @@ var skyrockets = [
         'color2' : '255,0,100',
         'particleRadius' : 5,
         'xFunction' : 'cos',
-        'yFunction' : 'sin',
-        'rocketIcon' : '\uf004',
-        'rocketIconSize' : 16
+        'yFunction' : 'sin'
     },
     {
         'name' : 'bigBadaBoooomPinkGreen',
@@ -87,9 +75,7 @@ var skyrockets = [
         'color2' : '0,255,43',
         'particleRadius' : 5,
         'xFunction' : 'tan',
-        'yFunction' : 'cos',
-        'rocketIcon' : '\uf1e2',
-        'rocketIconSize' : 40
+        'yFunction' : 'cos'
     },
     {
         'name' : 'GreenRingAndroid',
@@ -99,9 +85,7 @@ var skyrockets = [
         'color1' : '0,255,43',
         'particleRadius' : 2.5,
         'xFunction' : 'cos',
-        'yFunction' : 'sin',
-        'rocketIcon' : '\uf17b',
-        'rocketIconSize' : 30
+        'yFunction' : 'sin'
     },
     {
         'name' : 'redSilverRoundPlus',
@@ -109,12 +93,10 @@ var skyrockets = [
         'innerRadius' : 10,
         'numParticles' : 80,
         'color1' : '187,50,50',    // Red
-        'color2' : '195,195,195',        // Gray
+        'color2' : '195,195,195',  // Gray
         'particleRadius' : 5,
         'xFunction' : 'cos',
-        'yFunction' : 'sin',
-        'rocketIcon' : '\uf0fe',
-        'rocketIconSize' : 15
+        'yFunction' : 'sin'
     },
     {
         'name' : 'blueSilverRingBigParticleLowAlphaSlideShare',
@@ -122,13 +104,11 @@ var skyrockets = [
         'innerRadius' : 10,
         'numParticles' : 80,
         'color1' : '91,154,169',       // Blue
-        'color2' : '195,195,195',       // Gray
+        'color2' : '195,195,195',      // Gray
         'particleRadius' : 15,
         'particleAlpha' : 0.5,
         'xFunction' : 'cos',
-        'yFunction' : 'sin',
-        'rocketIcon' : '\uf1e7',
-        'rocketIconSize' : 20
+        'yFunction' : 'sin'
     },
     {
         'name' : 'greenSilverCrazyHTML5',
@@ -136,12 +116,10 @@ var skyrockets = [
         'innerRadius' : 10,
         'numParticles' : 300,
         'color1' : '136,154,58',    // Green
-        'color2' : '195,195,195',        // Gray
+        'color2' : '195,195,195',   // Gray
         'particleRadius' : 2.5,
         'xFunction' : 'tan',
-        'yFunction' : 'cos',
-        'rocketIcon' : '\uf13b',
-        'rocketIconSize' : 25
+        'yFunction' : 'cos'
     },
     {
         'name' : 'plainYellowSmall',
@@ -151,8 +129,6 @@ var skyrockets = [
         'color1' : '230,173,48',    // yellow
         'particleRadius' : 3,
         'xFunction' : 'sin',
-        'yFunction' : 'cos',
-        'rocketIcon' : '\uf052',
-        'rocketIconSize' : 20
+        'yFunction' : 'cos'
     },
 ];
