@@ -4,7 +4,7 @@ Create fireworks on HTML canvas with Skyrocket.js
 ## Description
 Skyrocket.js is a JavaScript library which displays skyrocket fireworks on HTML canvas.
 
-Skyrockets launch from the bottom center of the screen, fly up, explode, then fade. Currently the rockets are Font Awesome icons.
+Skyrockets launch from the bottom center of the screen, fly up, explode, then fade.
 
 Rocket properties are defined in rocket_definitions.js with rockets being picked at random.
 
@@ -18,7 +18,7 @@ For an example, load the included index.html file in your browser.
 As you will see there is a function called addFirework() which is called repeatedly to spawn new fireworks at a random interval.
 
 ## Tutorials and other documentation
-Sorry, there are none at this time. Currently this library is in a pre-release state, the v0.1 was created in one day during a coding hackathon.
+Sorry, there are none at this time. Currently this library is in a alpha state with the inital 0.0.1 created during a hackday. Please look at the included index.html and other source code for what is required.
 
 ## Maintainer
 Douglas McKechie https://github.com/zarocknz
