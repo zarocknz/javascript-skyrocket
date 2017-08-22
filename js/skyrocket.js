@@ -79,7 +79,9 @@ function Firework(id, options)
         'yFunction' : 'sin',
         'tail' : false,
         'tailWidth' : 1,
-        'tailColor' : '0,255,0'
+        'tailColor' : '0,255,0',
+        'targetX' : null,           // Can be set to control where the rocket goes on launch.
+        'targetY' : null
     };
 
     // Now loop through the default options and create properties of this class set to the value for
@@ -115,10 +117,6 @@ function Firework(id, options)
 
     // Also set something to keep track of the state of the firework.
     this.state = 'new';
-
-    // Call function to auto launch the firework straight away?
-    //++ @TODO decide if fireworks can be queued up and launched later so don't call this here.
-    this.launch();
 }
 
 // Draws the firework.
@@ -216,6 +214,12 @@ Firework.prototype.launch = function()
     // Also work out a radom x so the firework goes to the left or right
     // ensure not too far left or right so not off the screen.
     var randomX = ((Math.random() * (canvas.width - 100)) + 50);
+
+    // Check if a launch target x and y was specified, if so then use that for the x and y.
+    if (this.targetX && this.targetY) {
+        randomX = this.targetX;
+        randomY = this.targetY;
+    }
 
     // Work out the rotation angle of the rocket so that the nose of it points towards the randomX and randomY
     // otherwise it can look like the rocket flies sideways.
