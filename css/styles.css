@@ -59,3 +59,25 @@ div:nth-child(12n) {
   top: 0;
   left: 0;
 }
+
+.message {
+  position: absolute;
+  z-index: 99;
+  bottom: 0;
+  color: #ccc;
+  background: #333;
+  padding: 20px;
+  text-align: center;
+}
+
+h3 {
+    margin: 2px;
+}
+
+.small {
+    font-size: 10px;
+}
+
+p {
+    margin: 5px;
+}

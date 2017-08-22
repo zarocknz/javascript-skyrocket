@@ -44,8 +44,6 @@ Heaps, which may include the following (not in any particular order)...
 * Lighten sky slightly when rockets explode
 * Allow explosion particles to have tails (will aid in creating different looking explosions)
 * Allow the user to specify where along the screen (x axis) the rocket launches from rather than always in the center, perhaps there is an option for this to be random
-* Stop the timeout adding fireworks when the browser tab has lost focus (when the user returns 100's of fireworks can be launched at once)
 * Sort backdrop building height being the same at mobile width
 * Ensure that backdrop is optional and there are some config parameters for it
-* Allow the user to click/tap to launch additional skyrockets, perhaps to the x,y location of the click
 * Create some documentation and examples
