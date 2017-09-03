@@ -41,7 +41,6 @@ Heaps, which may include the following (not in any particular order)...
 * Perhaps de-couple firework explosion shapes from the colours so users can pick a shape and specify any colour
 * Allow images to be used for the rockets
 * Add launch and explosion sounds, either pre-recorded or perhaps audio API generated
-* Lighten sky slightly when rockets explode
 * Allow explosion particles to have tails (will aid in creating different looking explosions)
 * Allow the user to specify where along the screen (x axis) the rocket launches from rather than always in the center, perhaps there is an option for this to be random
 * Sort backdrop building height being the same at mobile width
