@@ -13,7 +13,7 @@ function skyline() {
         if (window.matchMedia("(min-width: 768px)").matches) {
             var height = Math.floor((Math.random() * 30) + 1) + "%";
         } else {
-            var height = Math.floor((Math.random() * 20) + 1) + "%";
+            var height = Math.floor((Math.random() * 15) + 1) + "%";
         }
 
         // Calculate the left using the loopX to position the buildings along the bottom of the screen.
