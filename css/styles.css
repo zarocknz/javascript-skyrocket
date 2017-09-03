@@ -18,12 +18,6 @@ figure {
   background: linear-gradient(#20202f 0%, #273550 25%, #416081 60%, #adacb2 82%, #000 82%, #000 100%);
 }
 
-@media screen and (max-width:768px) {
-  .backdrop {
-    max-height: 15%
-  }
-}
-
 .backdrop {
   position: absolute;
   bottom: 15%;
@@ -41,12 +35,6 @@ div:nth-child(20n) {
 div:nth-child(12n) {
   -webkit-clip-path: polygon(-10% 15%, 100% 0, 110% 110%, -10% 100%);
   clip-path: polygon(-10% 15%, 100% 0, 110% 110%, -10% 100%);
-}
-
-@media (max-width: 640px) {
-  div {
-    transform: scaleY(0.75);
-  }
 }
 
 #main {
