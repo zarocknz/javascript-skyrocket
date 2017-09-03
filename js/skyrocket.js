@@ -200,6 +200,16 @@ Firework.prototype.draw = function()
         for (y = 0; y < this.glitter.length; y ++) {
             this.glitter[y].draw();
         }
+
+        // Check if there is an explosionAlpha defined and also if its > 0. If so then draw
+        // a rectangle across the entire screen as this should lighten the sky slightly.
+        // The explosionAlpha is the alpha value to use, the colour is the primary of the firework.
+        if (this.explosionAlpha && this.explosionAlpha > 0) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(' + this.color1 + ',' + this.explosionAlpha + ')';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.restore();
+        }
     }
 }
 
@@ -317,6 +327,16 @@ Firework.prototype.explode = function()
         properties['ease'] = this.easing;
 
         TweenMax.to(this.glitter[y], 2, properties);
+
+        // Also add a very alpha rectangle over the whole screen with the primary colour of the firework
+        // and give it an animation to quickly fade out. This should result in the screen appearing to
+        // brighten slightly when a firework explodes.
+        this.explosionAlpha = 0.040;
+
+        var properties = new Array(null);
+        properties['explosionAlpha'] = 0;
+
+        TweenMax.to(this, 2, properties);
     }
 
     // Create bogus tween on the firework for 1.8 seconds so can trigger the fade
