@@ -1,0 +1,82 @@
+body {
+	background-color: #333;
+	color: #ccc;
+	font-family: verdana, arial;
+	font-size: 12px;
+}
+
+.controlsPane {
+	width: 100%;
+}
+
+#canvas {
+	background-color: black;
+	margin: 0 auto;
+	display: block;
+	cursor: crosshair;
+}
+
+.content {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.clears {
+	clear: both;
+}
+
+.control {
+	float: left;
+	margin-right: 10px;
+	margin-left: 10px;
+	padding: 10px;
+	height: 135px;
+}
+
+input {
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+input[type=text] {
+	width: 110px;
+	text-align: right;
+}
+
+input[type=range] {
+	width: 115px;
+}
+
+input.left {
+	text-align: left;
+}
+
+input[type=checkbox] {
+	margin-top: 8px;
+	margin-right: 3px;
+}
+
+input[type=radio] {
+	margin-top: 8px;
+}
+
+button {
+	margin-top: 8px;
+	margin-left: 10px;
+}
+
+button.large {
+	padding:3px;
+	width: 130px;
+}
+
+textarea {
+	width: 450px;
+	padding: 10px;
+	height: 200px;
+	font-family: "courier-new", monospace;
+}
+
+input.short{
+	width: 60px;
+}
