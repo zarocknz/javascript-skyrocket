@@ -22,7 +22,8 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
         <script src="js/backdrop.js"></script>
-        <script src="js/rocket_definitions.js"></script>
+        <script src="skyrockets/colors.js"></script>
+        <script src="skyrockets/explosions.js"></script>
         <script src="js/skyrocket.js"></script>
         <script>
         var canvas = document.getElementById('canvas');
@@ -33,11 +34,14 @@
             // Check if the window has focus, only if yes then add more skyrockets. This is to prevent 100s of rockets
             // firing off if the browser tab has been in the background for some time.
             if (document.hasFocus()) {
-                // Choose a random firework from the definition of the fireworks above.
-                var randWork = Math.floor(Math.random() * skyrockets.length);
+                // Choose a random explosion and firework colour from those defined in the /skyrockets directory.
+                var randExplosion = Math.floor(Math.random() * explosions.length);
+                var randColor = Math.floor(Math.random() * colors.length);
 
                 // Create a new firework and launch it straight away.
-                fireworks[fireCount] = new Firework(fireCount, skyrockets[randWork]);
+                //++ @TODO it might be nice if the firework added itelf to the array and incremented the fireCount in
+                //++ its constructor rather than the developer having to worry about this.
+                fireworks[fireCount] = new Firework(fireCount, explosions[randExplosion], colors[randColor]);
                 fireworks[fireCount].launch();
 
                 // Increment this for next time.
@@ -53,10 +57,11 @@
         canvas.onclick = function (e)
         {
             // Choose a random skyrocket.
-            var randWork = Math.floor(Math.random() * skyrockets.length);
+            var randExplosion = Math.floor(Math.random() * explosions.length);
+            var randColor = Math.floor(Math.random() * colors.length);
 
             // Create a new firework.
-            var rocket = new Firework(fireCount, skyrockets[randWork]);
+            var rocket = new Firework(fireCount, explosions[randExplosion], colors[randColor]);
 
             // Set target x and y to mouse poistion.
             rocket.targetX = e.clientX;

@@ -1,3 +1,8 @@
+/*
+    This file contains all the JS to power the designer which allows the creation of skyrocket explosion shapes
+    and other other properties such as the animation type and duration to be specified.
+ */
+
 // Get the canvas and its context so we can draw in it.
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
