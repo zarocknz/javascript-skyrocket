@@ -1,15 +1,17 @@
+/*
+    This file contains all the JS code to power the skyrockets, make them launch, explode, fade, etc.
+ */
+
 // Class for particles which have x, y, color, alpha etc.
 function Particle(options)
 {
     // Define default options
     defaultOptions = {
-        'x' : 0,
-        'y' : 0,
-        'color' : '0,255,0',
-        'alpha' : 0.8,            // Used with the colour to set rgba fillStyle.
-        'strokeStyle' : '',
-        'lineWidth' : 0,
-        'radius' : 3
+        'x' : 0,    // Xpos - relative to the center point.
+        'y' : 0,    // yPos
+        'r' : 10,   // Radius
+        'c' : 1,    // Colour number (1-3)
+        'a' : 0.8,  // Alpha
     };
 
     // Now loop through the default options and create properties of this class set to the value for
@@ -63,42 +65,37 @@ Particle.prototype.draw = function()
 }
 
 // Class for firework (i.e. an individual skyrocket)
-function Firework(id, options)
+function Firework(id, explosionOptions, colours, launchX=null)
 {
     // Define default options (most are to do with explosion).
     defaultOptions = {
-        'outerRadius' : 60,
-        'innerRadius' : 30,
-        'numParticles' : 50,
-        'particleRadius' : 3,
-        'particleAlpha' : 0.8,
-        'color1' : '255,0,0',
-        'color2' : null,
-        'easing' : 'Power1.easeOut',
-        'xFunction' : 'cos',
-        'yFunction' : 'sin',
-        'tail' : false,
-        'tailWidth' : 1,
-        'tailColor' : '0,255,0',
-        'targetX' : null,           // Can be set to control where the rocket goes on launch.
-        'targetY' : null
+        "duration": 1,
+        "power": "Power1",
+        "ease": "easeOut",
+        "particles": [{"x": 0, "y": 0, "r": 5, "c": 1, "a": 1}],
+        "color1" : colours["1"],
+        "color2" : colours["2"],
+        "color3" : colours["3"],
+        "targetX" : null,           // Can be set to control where the rocket goes on launch.
+        "targetY" : null
     };
 
     // Now loop through the default options and create properties of this class set to the value for
     // the option passed in if a value was, or if not then set the value of the default.
     for (var key in defaultOptions) {
-        if ((options != null) && (typeof(options[key]) !== 'undefined'))
-            this[key] = options[key];
-        else
+        if ((explosionOptions != null) && (typeof(explosionOptions[key]) !== 'undefined')) {
+            this[key] = explosionOptions[key];
+        } else {
             this[key] = defaultOptions[key];
+        }
     }
 
     // Also loop though the passed in options and add anything specified not part of the class in to it as a property.
-    // This allows the developer to easily add properties to particles at creation time.
-    if (options != null) {
-        for (var key in options) {
+    // This allows the developer to easily add additional properies for use if needed.
+    if (explosionOptions != null) {
+        for (var key in explosionOptions) {
             if (typeof(this[key]) === 'undefined') {
-                this[key] = options[key];
+                this[key] = explosionOptions[key];
             }
         }
     }
@@ -106,10 +103,14 @@ function Firework(id, options)
     // Set the ID, X position, then look at other options.
     this.id = id;
 
-    // Set initial position to center bottom of the canvas.
-    //++ @TODO This may be one of the options, other users might not want it launched from the center.
+    // Set initial position to center bottom of the canvas, unless the developer as defined a launchX.
+    //++ @TODO in future expand this to a launch options array where can specify x, y, target xY, and perhaps rocket options as well.
     this.x = (canvas.width / 2);
     this.y = canvas.height;
+
+    if (launchX) {
+        this.x = launchX;
+    }
 
     // Arrays for the particles making up the explosion and also the trail.
     this.glitter = new Array();
@@ -127,7 +128,7 @@ Firework.prototype.draw = function()
         var trailId = this.trail.length;
 
         // Leave behind some particles as a trail. Not too many.
-        //++ @TODO probably a better way to spawn these.
+        //++ @TODO probably a better way to spawn these rather than on each tick. Timebased would be nice.
         if (this.addTailParticle === 1) {
             this.trail[trailId] = new Particle({
                 'x': this.x + 2.5,
@@ -266,19 +267,22 @@ Firework.prototype.launch = function()
     TweenMax.to(this, randTime, properties);
 }
 
-// Called after the launch, we need to set the x and y on all giltter particles to that of the firework
+// Called after the launch, we need to set the x and y on all glitter particles to that of the firework
 // and also compute the targetX and targetY of where we want the particles to be at the end of the animation.
 Firework.prototype.explode = function()
 {
     this.state = 'explosion';
 
-    for (var y = 0; y < this.numParticles; y ++)
+    // Loop though all the defined particles.
+    for (var y = 0; y < this.particles.length; y ++)
     {
-        // Figure out the color, there can be 2.
+        // Figure out the color, there can be 3.
         var particleColor = this.color1;
 
-        if ((this.color2 !== null) &&  (y % 2 === 0))  {
+        if (this.particles[y].c == 2) {
             particleColor = this.color2;
+        } else if (this.particles[y].c == 3) {
+            particleColor = this.color3;
         }
 
         // Create particle and set intial x,y position to that of the firework.
@@ -287,44 +291,15 @@ Firework.prototype.explode = function()
             'x': this.x,
             'y': this.y,
             'color' : particleColor,
-            'radius' : this.particleRadius,
-            'alpha' : this.particleAlpha
+            'radius' : this.particles[y].r,
+            'alpha' : this.particles[y].a
         });
 
-        // Work out angle and radius.
-        var randAngle = Math.random() * 359;    // Angle the particles around the full 360.
-
-        // Work out a random radius between the inner and outerRadius.
-        var randRadius = (Math.random() * (this.outerRadius - this.innerRadius)) + this.innerRadius;
-
-        // Convert the angle in to radians since that is what the math functions need to be.
-        var radian = (randAngle * 0.0174532925);
-
-        // Work out the targetX and targetY, this is relative to the center point.
-        var targetX = 0;
-        var targetY = 0;
-
-        if (this.xFunction == 'cos') {
-            targetX = randRadius * Math.cos(radian);
-        } else if (this.xFunction == 'tan') {
-            targetX = randRadius * Math.tan(radian);
-        } else if (this.xFunction == 'sin') {
-            targetX = randRadius * Math.sin(radian);
-        }
-
-        if (this.yFunction == 'cos') {
-            targetY = randRadius * Math.cos(radian);
-        } else if (this.yFunction == 'tan') {
-            targetY = randRadius * Math.tan(radian);
-        } else if (this.yFunction == 'sin') {
-            targetY = randRadius * Math.sin(radian);
-        }
-
-        // Put together the properties for the tweenmax animation.
+        // Put together the properties for the tweenmax animation. The x and y are relative to the center point of the rocket.
         var properties = new Array(null);
-        properties['x'] = this.x + targetX;
-        properties['y'] = this.y + targetY;
-        properties['ease'] = this.easing;
+        properties['x'] = this.x + this.particles[y].x;
+        properties['y'] = this.y + this.particles[y].y;
+        properties['ease'] = this.power + '.' + this.ease;
 
         TweenMax.to(this.glitter[y], 2, properties);
 
@@ -341,7 +316,7 @@ Firework.prototype.explode = function()
 
     // Create bogus tween on the firework for 1.8 seconds so can trigger the fade
     var properties = new Array(null);
-    properties['x']                   = 0;
+    properties['x']                = 0;
     properties['onComplete']       = triggerFade;               //++ This will get called for each petal which is not desirable, how to make for whole firework??
     properties['onCompleteParams'] = new Array('' + this.id);   // Add the Id of this one to the params.
     TweenMax.to(this, 2, properties);
@@ -352,15 +327,15 @@ Firework.prototype.fade = function()
 {
     this.state = 'fade';
 
-    // Need to trigger the firework dead at the same time as the particles are finished
-    //++ @TODO review if this is the best way to do it as alpha was on the firework as a whole before.
+    // Need to trigger the firework dead at the same time as the particles are finished.
+    // Only want to do this once which is why a callback is not placed on the glitter tweens below.
     var properties = new Array(null);
     properties['ease']             = 'Power0.easeNone';
     properties['onComplete']       = triggerDead;
     properties['onCompleteParams'] = new Array('' + this.id);
     TweenMax.to(this, 0.8, properties);
 
-    // Loop though petals and get them to drop a bit as they fade to simulate gravity.
+    // Loop though and get them to drop a bit as they fade to simulate gravity.
     for (y = 0; y < this.glitter.length; y ++)
     {
         var properties = new Array(null);
@@ -406,8 +381,9 @@ function animationLoop()
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Loop and draw all fireworks.
-    //++ It will take longer to do this each time. Some sort of queue system
-    //++ @TODO would be nice where the fireworks a pushed on then popped off? - How does that affect the ID though?
+    //++ @TODO need some better way to manage the array length over time as at the moment new items are just added
+    //++ to the end so this will grow over time. Some sort of push on creation, pop after fade. Only thing is how to
+    //++ easily do an ID for the fireworks?
     for(i=0; i < fireworks.length; i ++) {
         // If firework exists at that array position then draw it, otherwise skip.
         if (fireworks[i]) {

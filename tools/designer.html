@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <title>Skyrocket.js | example</title>
+      <link rel="stylesheet" href="../css/normalize.css">
+	  <link rel="stylesheet" href="designer.css">
+    </head>
+    <body onresize="resizeCanvas()" onload="resizeCanvas();">
+        <div class="content">
+            <h2>Skyrocket.js - Rocket explosion shape designer</h2>
+    		<p>Use this tool to design firework explosions. Place particles by left-clicking with the mouse around
+    			the center point (which is where the skyrocket will fly to). You can select existing particles and
+                alter their properties as well as dragging them to a new location.
+    		</p>
+        </div>
+		<canvas id="canvas" width="1000" height="400">
+        	Canvas not supported, please try a different web browser.
+        </canvas>
+        <div class="content">
+            <div class="control">
+                <h3>Action</h3>
+                <input type="radio" name="action" id="action-add" value="add" checked> Add<br />
+                <input type="radio" name="action" id="action-select" value="select"> Select<br />
+                <input type="radio" name="action" id="action-delete" value="delete"> Delete
+            </div>
+            <div class="control location">
+                <h3>Location</h3>
+                X <input type="text" id="location-x" class="short" value="0"><br />
+                Y <input type="text" id="location-y" class="short" value="0"><br />
+                Relative to<br />center point
+            </div>
+            <div class="control">
+                <h3>Particle radius</h3>
+                <input type="range" id="radius-range" min="1" max="50" value="10"><br />
+                <input type="text" id="radius-text" value="10">
+            </div>
+            <div class="control">
+                <h3>Colour</h3>
+                <input type="radio" name="colour" id="colour-one" value="1" checked> One<br />
+                <input type="radio" name="colour" id="colour-two" value="2"> Two<br />
+                <input type="radio" name="colour" id="colour-three" value="3"> Three
+            </div>
+            <div class="control">
+                <h3>Alpha</h3>
+                <input type="range" id="alpha-range" min="1" max="100" value="80"><br />
+                <input type="text" id="alpha-text" value="0.8">
+            </div>
+            <div class="control">
+                <h3>Global</h3>
+                <label for="explosion-name">Explosion name</label><br />
+                <input type="text" id="explosion-name" class="left" value="Boom"><br />
+                <label for="creator-name">Creator</label><br />
+                <input type="text" id="creator-name" class="left" value="A. Person"><br />
+            </div>
+            <div class="control">
+                <h3>Animation (global)</h3>
+                <label for="animation-duration">Duration (seconds)</label><br />
+                <input type="text" id="animation-duration" class="left short" value="1">
+                <button id="animation-test">Test</button><br />
+                <label for="animation-power">Easing</label><br />
+                <select id="animation-power">
+                    <option value="Power1">Power1</option>
+                    <option value="Power2">Power2</option>
+                    <option value="Power3">Power3</option>
+                    <option value="Power4">Power4</option>
+                    <option value="Back">Back</option>
+                    <option value="Elastic">Elastic</option>
+                    <option value="Bounce">Bounce</option>
+                    <option value="Circ">Circ</option>
+                    <option value="Expo">Expo</option>
+                    <option value="Sine">Sine</option>
+                </select>
+                <select id="animation-ease">
+                    <option value="easeOut">easeOut</option>
+                    <option value="easeInOut">easeInOut</option>
+                    <option value="easeIn">easeIn</option>
+                </select>
+            </div>
+            <div class="control">
+                <h3>Circle guide</h3>
+                <input type="range" id="circle-range" min="1" max="200" value="80"><br />
+                <input type="text" id="circle-text" value="80"><br />
+                <input type="checkbox" id="circle-show">Show &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="circle-snap">Snap
+            </div>
+            <div class="control">
+                <h3>Grid guide</h3>
+                <input type="range" id="grid-range" min="10" max="100" value="20"><br />
+                <input type="text" id="grid-text" value="20"><br />
+                <input type="checkbox" id="grid-show">Show &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" id="grid-snap">Snap
+            </div>
+            <div class="clears"></div>
+		</div>
+        <hr />
+        <div class="control">
+            <textarea id="config-textarea">
+Click the "Create JSON" button to turn your design in to the config needed for the rocket definitions file.
+            </textarea>
+        </div>
+        <div class="control">
+            <button id="create-json" class="large">Create JSON config</button><br /><br />
+            <button id="load-json" class="large">Load JSON config</button>
+        </div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+        <script src="designer.js"></script>
+    </body>
+</html>
