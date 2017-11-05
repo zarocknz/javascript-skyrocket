@@ -1,5 +1,5 @@
 /*
-	This file contains the code which generates the sky scraper background. If you want to do your own custom
+    This file contains the code which generates the sky scraper background. If you want to do your own custom
     background, perhaps an SVG, then simply don't include this file on the index.html page.
  */
 
